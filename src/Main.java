@@ -1,22 +1,53 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Properties;
 
 public class Main {
+    private static final String CONFIG_FILE = "config.properties";
+    static Properties properties = new Properties();
+    static Path configPath = Paths.get(CONFIG_FILE);
+
     public static void main(String[] args) throws InvalidDataException {
-        String filePath;
-        String delimiter;
-        if (args.length == 1) {
-            System.out.println("Не указан разделитель.");
-            return;
-        } else if (args.length == 0) {
-            System.out.println("Не указаны имя файла и разделитель.");
-            return;
+        String filePath = "";
+        String delimiter = "";
+        if (args.length < 2) {
+            if (Files.exists(configPath)) {
+                try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
+                    properties.load(in);
+                    System.out.println("Настройки загружены из файла config.properties");
+                    filePath = String.valueOf(properties.get("filepath"));
+                    delimiter = String.valueOf(properties.get("delimiter"));
+                } catch (IOException e) {
+                    System.out.println("Ошибка при загрузке настроек: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Не указаны имя файла и разделитель.");
+                return;
+            }
         } else {
+            if (Files.exists(configPath)) {
+                properties.setProperty("filepath", filePath);
+                properties.setProperty("delimiter", delimiter);
+            }
             filePath = args[0];
             delimiter = args[1];
+            saveProperties(filePath, delimiter);
         }
 
         calculateEquation(getData(filePath, delimiter));
+    }
+
+    public static void saveProperties(String filePath, String delimiter) {
+        properties.setProperty("filepath", filePath);
+        properties.setProperty("delimiter", delimiter);
+        try (FileOutputStream out = new FileOutputStream("config.properties")) {
+            properties.store(out, "Program Configuration");
+            System.out.println("Настройки успешно сохранены в файл config.properties");
+        } catch (IOException e) {
+            System.out.println("Ошибка при сохранении настроек: " + e.getMessage());
+        }
     }
 
     public static String[] getData(String filePath, String delimiter) {
