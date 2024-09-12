@@ -3,8 +3,8 @@
 Параметры запуска из командной строки:
 
 ```
-java -jar C:\YourFolder\Task2.jar c:\YourFolder\file.txt delimeter
+java -jar C:\YourFolder\Task2.jar --filepath --delimeter
 ```
--`C:\YourFolder\Task2.jar` - путь до файла jar приложения.  
--`С:\YourFolder\file.txt` - путь до файла c коэффициентами.  
--`delimeter` - символ разделителя.
+`C:\YourFolder\Task2.jar` - путь до файла jar приложения.  
+`--filepath` - путь до файла c коэффициентами.  
+`--delimeter` - символ разделителя.

@@ -12,7 +12,22 @@ public class Main {
     public static void main(String[] args) throws InvalidDataException {
         String filePath = "";
         String delimiter = "";
-        if (args.length < 2) {
+
+        if (args.length == 4) {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].equals("--delimiter")) {
+                    delimiter = args[++i];
+                }
+                if (args[i].equals("--filepath")) {
+                    filePath = args[++i];
+                }
+            }
+            if (Files.exists(configPath)) {
+                properties.setProperty("filepath", filePath);
+                properties.setProperty("delimiter", delimiter);
+            }
+            saveProperties(filePath, delimiter);
+        } else {
             if (Files.exists(configPath)) {
                 try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
                     properties.load(in);
@@ -20,21 +35,16 @@ public class Main {
                     filePath = String.valueOf(properties.get("filepath"));
                     delimiter = String.valueOf(properties.get("delimiter"));
                 } catch (IOException e) {
-                    System.out.println("Ошибка при загрузке настроек: " + e.getMessage());
+                    System.err.println("Ошибка при загрузке настроек: " + e.getMessage());
                 }
             } else {
-                System.out.println("Не указаны имя файла и разделитель.");
+                System.out.println("Запустите приложение со следующими параметрами:\n" +
+                        "--filepath  - путь к файлу с данными\n" +
+                        "--delimiter  - символ, использующийся для разделения значений данных\n");
                 return;
             }
-        } else {
-            if (Files.exists(configPath)) {
-                properties.setProperty("filepath", filePath);
-                properties.setProperty("delimiter", delimiter);
-            }
-            filePath = args[0];
-            delimiter = args[1];
-            saveProperties(filePath, delimiter);
         }
+
 
         calculateEquation(getData(filePath, delimiter));
     }
@@ -46,31 +56,43 @@ public class Main {
             properties.store(out, "Program Configuration");
             System.out.println("Настройки успешно сохранены в файл config.properties");
         } catch (IOException e) {
-            System.out.println("Ошибка при сохранении настроек: " + e.getMessage());
+            System.err.println("Ошибка при сохранении настроек: " + e.getMessage());
         }
     }
 
-    public static String[] getData(String filePath, String delimiter) {
+    public static Double[] getData(String filePath, String delimiter) {
         String buff;
-        String[] array = new String[4];
+        Double[] numbers = new Double[4];
+        String[] strings = new String[4];
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             buff = reader.readLine();
-            array = buff.split(delimiter);
+            strings = buff.split(delimiter);
+            for (int i = 0; i < strings.length; i++) {
+                numbers[i] = parseNumber(strings[i]);
+            }
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
             exception.getStackTrace();
         }
-        return array;
+        return numbers;
     }
 
-    public static void calculateEquation(String[] array) throws InvalidDataException {
+    public static Double parseNumber(String number) throws InvalidArgumentException {
+        try {
+            return Double.parseDouble(number);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentException("Не верный формат числа: " + number);
+        }
+    }
+
+    public static void calculateEquation(Double[] array) throws InvalidDataException {
         if (array.length < 4) {
             throw new InvalidDataException("Не достаточно данных для решения уравнения");
         }
-        double a = Integer.parseInt(array[0]);
-        double b = Integer.parseInt(array[1]);
-        double c = Integer.parseInt(array[2]);
-        double e = Integer.parseInt(array[3]);
+        double a = array[0];
+        double b = array[1];
+        double c = array[2];
+        double e = array[3];
 
         double x;
         double x1;
