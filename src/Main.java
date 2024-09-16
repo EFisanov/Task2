@@ -11,7 +11,7 @@ public class Main {
     static String filePath = "";
     static String delimiter = "";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidArgumentException, IOException, InvalidDataException {
 
         if (args.length == 4) {
             for (int i = 0; i < args.length; i++) {
@@ -42,7 +42,7 @@ public class Main {
         calculateEquation(getData(filePath, delimiter));
     }
 
-    public static void loadProperties(Properties properties) {
+    public static void loadProperties(Properties properties) throws IOException, InvalidArgumentException {
         try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
             properties.load(in);
             if (properties.containsKey("filepath") && properties.containsKey("delimiter")) {
@@ -57,8 +57,6 @@ public class Main {
                         --delimiter  - символ, использующийся для разделения значений данных
                         """);
             }
-        } catch (IOException | InvalidArgumentException exception) {
-            throw new RuntimeException(exception.getMessage());
         }
     }
 
@@ -68,12 +66,12 @@ public class Main {
         try (FileOutputStream out = new FileOutputStream("config.properties")) {
             properties.store(out, "Program Configuration");
             System.out.println("Настройки успешно сохранены в файл config.properties");
-        } catch (IOException e) {
-            System.err.println("Ошибка при сохранении настроек: " + e.getMessage());
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
-    public static Double[] getData(String filePath, String delimiter) {
+    public static Double[] getData(String filePath, String delimiter) throws IOException, InvalidDataException {
         String buff;
         Double[] numbers = new Double[4];
         String[] strings;
@@ -86,8 +84,6 @@ public class Main {
             for (int i = 0; i < strings.length; i++) {
                 numbers[i] = parseNumber(strings[i]);
             }
-        } catch (IOException | InvalidDataException exception) {
-            throw new RuntimeException(exception.getMessage());
         }
         return numbers;
     }

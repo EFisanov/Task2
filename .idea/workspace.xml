@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abb9bb8b-2c60-4f4b-9b92-5138218942d6" name="Changes" comment="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами.">
+    <list default="true" id="abb9bb8b-2c60-4f4b-9b92-5138218942d6" name="Changes" comment="[.i] (TXPG-9521) Исправлены ошибки - реализовано завершение приложения при возникновении критических ошибок: при отсутствии файла с данными, при отсутствии настроек приложения. Произведён рефакторинг приложения.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -47,20 +47,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.111.executor": "Run",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/efisanov/IdeaProjects/Task2/src",
-    "onboarding.tips.debug.path": "C:/Users/efisanov/IdeaProjects/Task2/src/Main.java",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.111.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/efisanov/IdeaProjects/Task2/src&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/efisanov/IdeaProjects/Task2/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\efisanov\IdeaProjects\Task2\src" />
@@ -112,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726147342429</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[.i] (TXPG-9521) Исправлены ошибки - реализовано завершение приложения при возникновении критических ошибок: при отсутствии файла с данными, при отсутствии настроек приложения. Произведён рефакторинг приложения.">
+      <option name="closed" value="true" />
+      <created>1726486212699</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726486212699</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,6 +138,7 @@
     <MESSAGE value="Init commit." />
     <MESSAGE value="[.i] (TXPG-9521) Создано приложение для решения квадратных уравнений." />
     <MESSAGE value="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами." />
-    <option name="LAST_COMMIT_MESSAGE" value="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами." />
+    <MESSAGE value="[.i] (TXPG-9521) Исправлены ошибки - реализовано завершение приложения при возникновении критических ошибок: при отсутствии файла с данными, при отсутствии настроек приложения. Произведён рефакторинг приложения." />
+    <option name="LAST_COMMIT_MESSAGE" value="[.i] (TXPG-9521) Исправлены ошибки - реализовано завершение приложения при возникновении критических ошибок: при отсутствии файла с данными, при отсутствии настроек приложения. Произведён рефакторинг приложения." />
   </component>
 </project>
