@@ -8,10 +8,10 @@ public class Main {
     private static final String CONFIG_FILE = "config.properties";
     static Properties properties = new Properties();
     static Path configPath = Paths.get(CONFIG_FILE);
+    static String filePath = "";
+    static String delimiter = "";
 
-    public static void main(String[] args) throws InvalidDataException {
-        String filePath = "";
-        String delimiter = "";
+    public static void main(String[] args) {
 
         if (args.length == 4) {
             for (int i = 0; i < args.length; i++) {
@@ -29,24 +29,37 @@ public class Main {
             saveProperties(filePath, delimiter);
         } else {
             if (Files.exists(configPath)) {
-                try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
-                    properties.load(in);
-                    System.out.println("Настройки загружены из файла config.properties");
-                    filePath = String.valueOf(properties.get("filepath"));
-                    delimiter = String.valueOf(properties.get("delimiter"));
-                } catch (IOException e) {
-                    System.err.println("Ошибка при загрузке настроек: " + e.getMessage());
-                }
+                loadProperties(properties);
             } else {
-                System.out.println("Запустите приложение со следующими параметрами:\n" +
-                        "--filepath  - путь к файлу с данными\n" +
-                        "--delimiter  - символ, использующийся для разделения значений данных\n");
+                System.err.println("""
+                        Запустите приложение со следующими параметрами:
+                        --filepath  - путь к файлу с данными
+                        --delimiter  - символ, использующийся для разделения значений данных
+                        """);
                 return;
             }
         }
-
-
         calculateEquation(getData(filePath, delimiter));
+    }
+
+    public static void loadProperties(Properties properties) {
+        try (FileInputStream in = new FileInputStream(CONFIG_FILE)) {
+            properties.load(in);
+            if (properties.containsKey("filepath") && properties.containsKey("delimiter")) {
+                System.out.println("Настройки загружены из файла config.properties");
+                filePath = String.valueOf(properties.get("filepath"));
+                delimiter = String.valueOf(properties.get("delimiter"));
+            } else {
+                throw new InvalidArgumentException("""
+                        Ошибка при загрузке настроек из файла
+                        Запустите приложение со следующими параметрами:
+                        --filepath  - путь к файлу с данными
+                        --delimiter  - символ, использующийся для разделения значений данных
+                        """);
+            }
+        } catch (IOException | InvalidArgumentException exception) {
+            throw new RuntimeException(exception.getMessage());
+        }
     }
 
     public static void saveProperties(String filePath, String delimiter) {
@@ -63,32 +76,31 @@ public class Main {
     public static Double[] getData(String filePath, String delimiter) {
         String buff;
         Double[] numbers = new Double[4];
-        String[] strings = new String[4];
+        String[] strings;
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             buff = reader.readLine();
             strings = buff.split(delimiter);
+            if (strings.length < 4) {
+                throw new InvalidDataException("Не достаточно данных для решения уравнения");
+            }
             for (int i = 0; i < strings.length; i++) {
                 numbers[i] = parseNumber(strings[i]);
             }
-        } catch (Exception exception) {
-            System.err.println(exception.getMessage());
-            exception.getStackTrace();
+        } catch (IOException | InvalidDataException exception) {
+            throw new RuntimeException(exception.getMessage());
         }
         return numbers;
     }
 
-    public static Double parseNumber(String number) throws InvalidArgumentException {
+    public static Double parseNumber(String number) throws InvalidDataException {
         try {
             return Double.parseDouble(number);
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentException("Не верный формат числа: " + number);
+            throw new InvalidDataException("Не верный формат числа: " + number);
         }
     }
 
-    public static void calculateEquation(Double[] array) throws InvalidDataException {
-        if (array.length < 4) {
-            throw new InvalidDataException("Не достаточно данных для решения уравнения");
-        }
+    public static void calculateEquation(Double[] array) {
         double a = array[0];
         double b = array[1];
         double c = array[2];

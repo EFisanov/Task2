@@ -9,10 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abb9bb8b-2c60-4f4b-9b92-5138218942d6" name="Changes" comment="[.i] (TXPG-9521) Создано приложение для решения квадратных уравнений.">
-      <change afterPath="$PROJECT_DIR$/src/InvalidArgumentException.java" afterDir="false" />
+    <list default="true" id="abb9bb8b-2c60-4f4b-9b92-5138218942d6" name="Changes" comment="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725539756697</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами.">
+      <option name="closed" value="true" />
+      <created>1726147342429</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726147342429</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,17 +129,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init commit." />
     <MESSAGE value="[.i] (TXPG-9521) Создано приложение для решения квадратных уравнений." />
-    <option name="LAST_COMMIT_MESSAGE" value="[.i] (TXPG-9521) Создано приложение для решения квадратных уравнений." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами." />
+    <option name="LAST_COMMIT_MESSAGE" value="[.i] (TXPG-9521) Исправлены ошибки: вывод ошибок реализован в поток System.err, возможно использовать вещественные числа, парсинг чисел вынесен в метод getData, с выбросом исключения, если формат не правильный. Реализована возможность запуска приложения с именованными параметрами." />
   </component>
 </project>
